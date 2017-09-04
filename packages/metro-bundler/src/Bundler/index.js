@@ -739,6 +739,7 @@ class Bundler {
       module.read(transformOptions),
     ]).then(([name, {code, dependencies, dependencyOffsets, map, source}]) => {
       const {preloadedModules} = options;
+      const isBase = module.isBase();
       const isPolyfill = module.isPolyfill();
       const preloaded =
         module.path === entryFilePath ||
@@ -751,8 +752,8 @@ class Bundler {
         id: moduleId,
         code,
         map,
+        base: isBase,
         meta: {dependencies, dependencyOffsets, preloaded, dependencyPairs},
-        isBase: module.isBase,
         polyfill: isPolyfill,
         sourceCode: source,
         sourcePath: module.path,

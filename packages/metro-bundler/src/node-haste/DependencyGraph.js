@@ -283,7 +283,7 @@ class DependencyGraph extends EventEmitter {
         transformOptions: options.transformer,
         onProgress,
         recursive,
-        isBase: true,
+        base: true,
         seen,
       })
       .then(() => req.getOrderedDependencies({
@@ -291,7 +291,7 @@ class DependencyGraph extends EventEmitter {
         transformOptions: options.transformer,
         onProgress,
         recursive,
-        isBase: false,
+        base: false,
         seen,
       }))
       .then(()=>response);

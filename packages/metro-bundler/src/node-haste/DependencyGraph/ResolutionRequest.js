@@ -143,14 +143,14 @@ class ResolutionRequest<TModule: Moduleish, TPackage: Packageish> {
     transformOptions,
     onProgress,
     recursive = true,
-    isBase = false,
+    base = false,
     seen
   }: {
     response: ResolutionResponse<TModule, T>,
     transformOptions: TransformWorkerOptions,
     onProgress?: ?(finishedModules: number, totalModules: number) => mixed,
     recursive: boolean,
-    isBase: boolean,
+    base: boolean,
     seen: Set,
   }) {
     const entry = this._options.moduleCache.getModule(this._options.entryPath);
@@ -276,7 +276,7 @@ class ResolutionRequest<TModule: Moduleish, TPackage: Packageish> {
               return;
             }
 
-            dependency.isBase = isBase;
+            dependency.base = base;
             seen.add(dependency);
             response.pushDependency(dependency);
             traverse(moduleDependencies.get(dependency));

@@ -95,7 +95,7 @@ class BundleBase {
       return this._base;
     }
 
-    this._base = this.__modules.filter(module => module.isBase).map(module => module.code).join('\n');
+    this._base = this.__modules.filter(module => module.base).map(module => module.code).join('\n');
     return this._base;
   }
 
@@ -106,7 +106,7 @@ class BundleBase {
       return this._source;
     }
 
-    this._source = this.__modules.filter(module => !module.isBase).map(module => module.code).join('\n');
+    this._source = this.__modules.filter(module => !module.base).map(module => module.code).join('\n');
     return this._source;
   }
 

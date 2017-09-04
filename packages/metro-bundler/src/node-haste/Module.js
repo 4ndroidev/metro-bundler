@@ -82,7 +82,6 @@ export type ConstructorArgs = {
   options: Options,
   reporter: Reporter,
   transformCode: ?TransformCode,
-  isBase: ?boolean,
 };
 
 type DocBlock = {+[key: string]: string};
@@ -119,19 +118,18 @@ class Module {
     options,
     reporter,
     transformCode,
-    isBase,
   }: ConstructorArgs) {
     if (!isAbsolutePath(file)) {
       throw new Error('Expected file to be absolute path but got ' + file);
     }
 
+    this.base = false;
     this.localPath = localPath;
     this.path = file;
     this.type = 'Module';
 
     this._moduleCache = moduleCache;
     this._transformCode = transformCode;
-    this.isBase = !!isBase;
     this._getTransformCacheKey = getTransformCacheKey;
     this._depGraphHelpers = depGraphHelpers;
     this._options = options || {};
@@ -414,6 +412,10 @@ class Module {
     return `Module : ${this.path}`;
   }
 
+  isBase() {
+    return !!this.base;
+  }
+
   isJSON() {
     return extname(this.path) === '.json';
   }
@@ -425,6 +427,7 @@ class Module {
   isPolyfill() {
     return false;
   }
+
 }
 
 // use weak map to speed up hash creation of known objects

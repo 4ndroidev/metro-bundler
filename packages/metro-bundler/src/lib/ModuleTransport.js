@@ -31,8 +31,8 @@ class ModuleTransport {
   sourceCode: string;
   sourcePath: string;
   virtual: boolean;
+  base: boolean;
   meta: ?Metadata;
-  isBase: boolean;
   polyfill: boolean;
   map: ?SourceMapOrMappings;
 
@@ -43,8 +43,8 @@ class ModuleTransport {
     sourceCode: string,
     sourcePath: string,
     virtual?: boolean,
+    base?: boolean,
     meta?: ?Metadata,
-    isBase: boolean,
     polyfill?: boolean,
     map?: ?SourceMapOrMappings,
   }) {
@@ -64,7 +64,7 @@ class ModuleTransport {
 
     this.virtual = !!data.virtual;
     this.meta = data.meta;
-    this.isBase = !!data.isBase;
+    this.base = !!data.base;
     this.polyfill = !!data.polyfill;
     this.map = data.map;
 

@@ -29,7 +29,7 @@ class Polyfill extends Module {
     super(options);
     this._id = options.id;
     this._dependencies = options.dependencies;
-    this.isBase = true;
+    this.base = true;
   }
 
   isHaste() {
