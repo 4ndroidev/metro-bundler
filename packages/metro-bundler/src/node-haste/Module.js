@@ -82,6 +82,7 @@ export type ConstructorArgs = {
   options: Options,
   reporter: Reporter,
   transformCode: ?TransformCode,
+  isBase: ?boolean,
 };
 
 type DocBlock = {+[key: string]: string};
@@ -118,6 +119,7 @@ class Module {
     options,
     reporter,
     transformCode,
+    isBase,
   }: ConstructorArgs) {
     if (!isAbsolutePath(file)) {
       throw new Error('Expected file to be absolute path but got ' + file);
@@ -129,6 +131,7 @@ class Module {
 
     this._moduleCache = moduleCache;
     this._transformCode = transformCode;
+    this.isBase = !!isBase;
     this._getTransformCacheKey = getTransformCacheKey;
     this._depGraphHelpers = depGraphHelpers;
     this._options = options || {};

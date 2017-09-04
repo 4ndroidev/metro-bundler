@@ -88,6 +88,17 @@ class BundleBase {
     this._finalized = true;
   }
 
+  getBase(options: GetSourceOptions) {
+    this.assertFinalized();
+
+    if (this._base) {
+      return this._base;
+    }
+
+    this._base = this.__modules.filter(module => module.isBase).map(module => module.code).join('\n');
+    return this._base;
+  }
+
   getSource(options: GetSourceOptions) {
     this.assertFinalized();
 
@@ -95,7 +106,7 @@ class BundleBase {
       return this._source;
     }
 
-    this._source = this.__modules.map(module => module.code).join('\n');
+    this._source = this.__modules.filter(module => !module.isBase).map(module => module.code).join('\n');
     return this._source;
   }
 

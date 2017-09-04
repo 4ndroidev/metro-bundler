@@ -143,15 +143,19 @@ class ResolutionRequest<TModule: Moduleish, TPackage: Packageish> {
     transformOptions,
     onProgress,
     recursive = true,
+    isBase = false,
+    seen
   }: {
     response: ResolutionResponse<TModule, T>,
     transformOptions: TransformWorkerOptions,
     onProgress?: ?(finishedModules: number, totalModules: number) => mixed,
     recursive: boolean,
+    isBase: boolean,
+    seen: Set,
   }) {
     const entry = this._options.moduleCache.getModule(this._options.entryPath);
 
-    response.pushDependency(entry);
+    // response.pushDependency(entry);
     let totalModules = 1;
     let finishedModules = 0;
 
@@ -266,13 +270,13 @@ class ResolutionRequest<TModule: Moduleish, TPackage: Packageish> {
       .then(([rootDependencies, moduleDependencies]) => {
         // serialize dependencies, and make sure that every single one is only
         // included once
-        const seen = new Set([entry]);
         function traverse(dependencies) {
           dependencies.forEach(dependency => {
             if (seen.has(dependency)) {
               return;
             }
 
+            dependency.isBase = isBase;
             seen.add(dependency);
             response.pushDependency(dependency);
             traverse(moduleDependencies.get(dependency));

@@ -44,6 +44,16 @@ function createCodeWithMap(
   };
 }
 
+function createBase(
+  bundle: Bundle,
+  dev: boolean,
+): {code: string} {
+  return {
+    code: bundle.getBase({dev}),
+  };
+}
+
+
 function saveBundleAndMap(
   bundle: Bundle,
   options: OutputOptions,
@@ -58,6 +68,7 @@ function saveBundleAndMap(
   } = options;
 
   log('start');
+  const base = createBase(bundle, !!dev);
   const origCodeWithMap = createCodeWithMap(bundle, !!dev, sourcemapSourcesRoot);
   const codeWithMap = bundle.postProcessBundleSourcemap({
     ...origCodeWithMap,
@@ -68,12 +79,14 @@ function saveBundleAndMap(
   log('Writing bundle output to:', bundleOutput);
 
   const {code} = codeWithMap;
+  //androidev todo change the path to baseOutput
+  const writeBase = writeFile(bundleOutput, base.code, encoding);
   const writeBundle = writeFile(bundleOutput, code, encoding);
   const writeMetadata = writeFile(
     bundleOutput + '.meta',
     meta(code, encoding),
     'binary');
-  Promise.all([writeBundle, writeMetadata])
+  Promise.all([writeBase, writeBundle, writeMetadata])
     .then(() => log('Done writing bundle output'));
 
   if (sourcemapOutput) {

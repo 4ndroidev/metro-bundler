@@ -752,6 +752,7 @@ class Bundler {
         code,
         map,
         meta: {dependencies, dependencyOffsets, preloaded, dependencyPairs},
+        isBase: module.isBase,
         polyfill: isPolyfill,
         sourceCode: source,
         sourcePath: module.path,
