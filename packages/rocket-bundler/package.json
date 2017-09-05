@@ -2,14 +2,12 @@
   "version": "0.14.0",
   "name": "rocket-bundler",
   "description": "🚀 The JavaScript bundler for React Native.",
-  "main": "src/cli.js",
+  "main": "build/cli.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:facebook/metro-bundler.git"
+    "url": "https://github.com/4ndroidev/metro-bundler"
   },
   "scripts": {
-    "prepare-release": "test -d build && rm -rf src.real && mv src src.real && mv build src",
-    "cleanup-release": "test ! -e build && mv src build && mv src.real src"
   },
   "dependencies": {
     "absolute-path": "^0.0.0",
