@@ -1,8 +1,8 @@
 {
   "version": "0.14.0",
-  "name": "metro-bundler",
-  "description": "🚇 The JavaScript bundler for React Native.",
-  "main": "src/index.js",
+  "name": "rocket-bundler",
+  "description": "🚀 The JavaScript bundler for React Native.",
+  "main": "src/cli.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:facebook/metro-bundler.git"

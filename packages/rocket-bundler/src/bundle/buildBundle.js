@@ -12,18 +12,18 @@
 'use strict';
 
 const log = require('../util/log').out('bundle');
-const Server = require('metro-bundler/src/Server');
-const Terminal = require('metro-bundler/src/lib/Terminal');
-const TerminalReporter = require('metro-bundler/src/lib/TerminalReporter');
-const TransformCaching = require('metro-bundler/src/lib/TransformCaching');
+const Server = require('../Server');
+const Terminal = require('../lib/Terminal');
+const TerminalReporter = require('../lib/TerminalReporter');
+const TransformCaching = require('../lib/TransformCaching');
 
-const outputBundle = require('metro-bundler/src/shared/output/bundle');
+const outputBundle = require('../shared/output/bundle');
 const path = require('path');
 const saveAssets = require('./saveAssets');
-const defaultAssetExts = require('metro-bundler/src/defaults').assetExts;
-const defaultSourceExts = require('metro-bundler/src/defaults').sourceExts;
-const defaultPlatforms = require('metro-bundler/src/defaults').platforms;
-const defaultProvidesModuleNodeModules = require('metro-bundler/src/defaults').providesModuleNodeModules;
+const defaultAssetExts = require('../defaults').assetExts;
+const defaultSourceExts = require('../defaults').sourceExts;
+const defaultPlatforms = require('../defaults').platforms;
+const defaultProvidesModuleNodeModules = require('../defaults').providesModuleNodeModules;
 
 const {ASSET_REGISTRY_PATH} = require('./Constants');
 

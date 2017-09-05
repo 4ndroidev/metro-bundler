@@ -10,13 +10,13 @@
  */
 'use strict';
 
-const blacklist = require('metro-bundler/src/blacklist');
+const blacklist = require('../blacklist');
 const findSymlinksPaths = require('./findSymlinksPaths');
 const fs = require('fs');
 const getPolyfills = require('./rn-get-polyfills');
 const path = require('path');
 
-const {providesModuleNodeModules} = require('metro-bundler/src/defaults');
+const {providesModuleNodeModules} = require('../defaults');
 
 const RN_CLI_CONFIG = 'rn-cli.config.js';
 
@@ -25,10 +25,10 @@ import type {
   PostMinifyProcess,
   PostProcessModules,
   PostProcessBundleSourcemap
-} from 'metro-bundler/src/Bundler';
-import type {HasteImpl} from 'metro-bundler/src/node-haste/Module';
-import type {TransformVariants} from 'metro-bundler/src/ModuleGraph/types.flow';
-import type {PostProcessModules as PostProcessModulesForBuck} from 'metro-bundler/src/ModuleGraph/types.flow.js';
+} from '../Bundler';
+import type {HasteImpl} from '../node-haste/Module';
+import type {TransformVariants} from '../ModuleGraph/types.flow';
+import type {PostProcessModules as PostProcessModulesForBuck} from '../ModuleGraph/types.flow.js';
 
 /**
  * Configuration file of the CLI.
@@ -182,7 +182,7 @@ const Config = {
     },
     getProvidesModuleNodeModules: () => providesModuleNodeModules.slice(),
     getSourceExts: () => [],
-    getTransformModulePath: () => require.resolve('metro-bundler/src/transformer.js'),
+    getTransformModulePath: () => require.resolve('../transformer.js'),
     getTransformOptions: async () => ({}),
     getPolyfills,
     postMinifyProcess: x => x,
