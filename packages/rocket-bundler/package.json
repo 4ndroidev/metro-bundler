@@ -1,5 +1,5 @@
 {
-  "version": "0.14.0",
+  "version": "0.14.1",
   "name": "rocket-bundler",
   "description": "🚀 The JavaScript bundler for React Native.",
   "main": "build/cli.js",
@@ -7,8 +7,7 @@
     "type": "git",
     "url": "https://github.com/4ndroidev/metro-bundler"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "dependencies": {
     "absolute-path": "^0.0.0",
     "async": "^2.4.0",
