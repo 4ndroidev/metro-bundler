@@ -19,6 +19,7 @@ function bundleWithOutput(argv, config, args, output, packagerInstance) {
   if (!output) {
     output = outputBundle;
   }
+  global.baseFile = args.baseFile;
   return buildBundle(args, config, output, packagerInstance);
 }
 

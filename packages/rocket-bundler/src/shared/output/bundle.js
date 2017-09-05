@@ -79,8 +79,8 @@ function saveBundleAndMap(
   log('Writing bundle output to:', bundleOutput);
 
   const {code} = codeWithMap;
-  //androidev todo change the path to baseOutput
-  const writeBase = writeFile(bundleOutput, base.code, encoding);
+  const baseOutput = options.baseFile ? options.baseOutput : undefined;
+  const writeBase = baseOutput ? writeFile(baseOutput, base.code, encoding) : Promise.resolve(true);
   const writeBundle = writeFile(bundleOutput, code, encoding);
   const writeMetadata = writeFile(
     bundleOutput + '.meta',

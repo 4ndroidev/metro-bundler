@@ -103,7 +103,6 @@ function getCliConfig(): RNConfig {
   const config = cliArgs.config != null
     ? Config.loadFile(path.resolve(__dirname, cliArgs.config))
     : Config.findOptional(__dirname);
-    console.log(Config.findOptional(__dirname));
   return {...defaultRNConfig, ...config};
 }
 

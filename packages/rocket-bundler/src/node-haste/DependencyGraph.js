@@ -251,24 +251,14 @@ class DependencyGraph extends EventEmitter {
   }): Promise<ResolutionResponse<Module, T>> {
     platform = this._getRequestPlatform(entryPath, platform);
     const absPath = this._getAbsolutePath(entryPath);
-    
-
-    const response = new ResolutionResponse(options);
 
     const entry = this._moduleCache.getModule(absPath);
+
+    const response = new ResolutionResponse(options);
 
     response.pushDependency(entry);
 
     const seen = new Set([entry]);
-
-    // androidev todo change path to basePath
-    const baseReq = new ResolutionRequest({
-      moduleResolver: this._moduleResolver,
-      entryPath: absPath,
-      helpers: this._helpers,
-      platform: platform != null ? platform : null,
-      moduleCache: this._moduleCache,
-    });
 
     const req = new ResolutionRequest({
       moduleResolver: this._moduleResolver,
@@ -278,23 +268,33 @@ class DependencyGraph extends EventEmitter {
       moduleCache: this._moduleCache,
     });
 
-    return baseReq.getOrderedDependencies({
+    const basePath = global.baseFile ? this._getAbsolutePath(global.baseFile) : undefined;
+
+    const basePromise = !basePath ? Promise.resolve(true) : 
+      new ResolutionRequest({
+        moduleResolver: this._moduleResolver,
+        entryPath: basePath,
+        helpers: this._helpers,
+        platform: platform != null ? platform : null,
+        moduleCache: this._moduleCache,
+      }).getOrderedDependencies({
         response,
         transformOptions: options.transformer,
         onProgress,
         recursive,
         base: true,
         seen,
-      })
-      .then(() => req.getOrderedDependencies({
-        response,
-        transformOptions: options.transformer,
-        onProgress,
-        recursive,
-        base: false,
-        seen,
-      }))
-      .then(()=>response);
+      });
+
+    return basePromise.then(()=>req.getOrderedDependencies({
+      response,
+      transformOptions: options.transformer,
+      onProgress,
+      recursive,
+      base: false,
+      seen,
+    }))
+    .then(()=>response);
   }
 
   matchFilesByPattern(pattern: RegExp) {

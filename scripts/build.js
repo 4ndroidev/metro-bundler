@@ -29,11 +29,13 @@ const chalk = require('chalk');
 const micromatch = require('micromatch');
 
 const getPackages = require('./_getPackages');
+const {execSync} = require('child_process');
 
 const SRC_DIR = 'src';
 const BUILD_DIR = 'build';
 const BUILD_ES5_DIR = 'build-es5';
 const JS_FILES_PATTERN = '**/*.js';
+const SH_FILES_PATTERN = "**/*.(sh|bat)";
 const IGNORE_PATTERN = '**/__tests__/**';
 const PACKAGES_DIR = path.resolve(__dirname, '../packages');
 
@@ -115,6 +117,9 @@ function buildFileFor(file, silent, env) {
       );
   } else if (!micromatch.isMatch(file, JS_FILES_PATTERN)) {
     fs.createReadStream(file).pipe(fs.createWriteStream(destPath));
+    if(micromatch.isMatch(file, SH_FILES_PATTERN)){
+      execSync(`chmod 755 ${destPath}`,  {stdio: [0, 1, 2]});
+    }
     silent ||
       process.stdout.write(
         chalk.red('  \u2022 ') +

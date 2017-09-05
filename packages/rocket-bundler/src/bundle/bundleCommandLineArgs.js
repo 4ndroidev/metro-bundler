@@ -62,5 +62,12 @@ module.exports = [
     command: '--read-global-cache',
     description: 'Try to fetch transformed JS code from the global cache, if configured.',
     default: false,
-  },
+  }, {
+    command: '--base-file [string]',
+    description: 'Path to the base JS file, either absolute or relative to JS root',
+  }, 
+  {
+    command: '--base-output [string]',
+    description: 'File name where to store the base bundle, ex. /tmp/base.bundle',
+  }
 ];
