@@ -12,7 +12,7 @@ This project was previously part of the [react-native](https://github.com/facebo
 
 usage: 
 
-node node_modules/rocket-bundler/build/cli.js bundle \
+node node_modules/rocket-bundler/src/cli.js bundle \
 	--dev false \
 	--platform android \
 	--entry-file index.android.js \
